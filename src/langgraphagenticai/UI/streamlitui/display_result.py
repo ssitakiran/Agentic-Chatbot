@@ -21,6 +21,6 @@ class DisplayResultStreamlit:
                     print(values['messages'])
                     with st.chat_message("user"):
                         st.write(user_message)
-                    with st.chat_messsage("assistant"):
+                    with st.chat_message("assistant"):
                         st.write(values['messages'].content)
         

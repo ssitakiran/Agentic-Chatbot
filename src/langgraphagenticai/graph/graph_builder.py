@@ -28,4 +28,6 @@ class GraphBuilder:
         Sets up the graph for selected usecase
         """
         if usecase == "Basic Chatbot":
-            self.basic_chatbot_build_graph(usecase)
+            self.basic_chatbot_build_graph()
+        
+        return self.graph_builder.compile()

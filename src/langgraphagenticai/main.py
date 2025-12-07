@@ -3,6 +3,8 @@ import streamlit as st
 from src.langgraphagenticai.UI.streamlitui.loadui import LoadStreamLitUI
 from src.langgraphagenticai.LLMs.groqllm import GroqLLM
 from src.langgraphagenticai.graph.graph_builder import GraphBuilder
+from src.langgraphagenticai.UI.streamlitui.display_result import DisplayResultStreamlit
+from langgraph.graph import StateGraph, START, END
 
 def load_langgraph_agenticai_app():
     """
@@ -26,7 +28,6 @@ def load_langgraph_agenticai_app():
         if user_message:
             try:
                 #Configure LLM
-            
                 obj_llm_config = GroqLLM(user_controls_input=user_input)
                 model=obj_llm_config.get_llm_model()
          
@@ -43,11 +44,11 @@ def load_langgraph_agenticai_app():
                 ## Create the graph builder
                 graph_builder=GraphBuilder(model=model)
                 try:
-                    graph_builder.setup_graph(usecase)
+                    returned_graph = graph_builder.setup_graph(usecase)
+                    DisplayResultStreamlit(usecase=usecase, graph=returned_graph, user_message=user_message).display_result_on_ui()
                 except Exception as e:
                     st.error(e)
-                    return     
-                
+                    return  
             except Exception as e:
                 st.error(e)
                 
